@@ -1,0 +1,2 @@
+### /authorize
+POST http://localhost:8090/authorize
