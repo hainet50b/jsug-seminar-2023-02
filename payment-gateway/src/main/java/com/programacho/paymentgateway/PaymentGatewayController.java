@@ -17,11 +17,11 @@ public class PaymentGatewayController {
 
     @PostMapping("/credit/authorize")
     public String creditAuthorize() {
-        return "ok";
+        return creditService.authorize();
     }
 
     @PostMapping("/qr/create-code")
     public String qrCreateCode() {
-        return "ok";
+        return qrService.createCode();
     }
 }
