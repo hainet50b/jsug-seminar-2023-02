@@ -1,0 +1,5 @@
+### /credit/authorize
+POST http://localhost:8080/credit/authorize
+
+### /qr/create-code
+POST http://localhost:8080/qr/create-code

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="ECS" target="SYSTEM_OUT">
+      <EcsLayout
+          serviceName="payment-gateway"
+          serviceVersion="0.0.1-SNAPSHOT"
+      />
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="ECS"/>
+    </Root>
+  </Loggers>
+</Configuration>

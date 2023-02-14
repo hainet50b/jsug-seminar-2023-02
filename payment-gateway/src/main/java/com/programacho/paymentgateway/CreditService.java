@@ -1,0 +1,30 @@
+package com.programacho.paymentgateway;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class CreditService {
+
+    private final Logger log = LoggerFactory.getLogger(CreditService.class);
+
+    private final RestTemplate restTemplate;
+
+    public CreditService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public String authorize() {
+        String response = restTemplate.postForObject(
+                "http://localhost:8090/authorize",
+                null,
+                String.class
+        );
+
+        log.info(response);
+
+        return response;
+    }
+}
