@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  jackson:
+    default-property-inclusion: non_empty
   rabbitmq:
     host: localhost
     port: 5672

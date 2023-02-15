@@ -16,14 +16,14 @@ public class CreditService {
         this.restTemplate = restTemplate;
     }
 
-    public String authorize() {
-        String response = restTemplate.postForObject(
+    public CreditAuthorizeResponse authorize(CreditAuthorizeRequest request) {
+        CreditAuthorizeResponse response = restTemplate.postForObject(
                 "http://localhost:8090/authorize",
-                null,
-                String.class
+                request,
+                CreditAuthorizeResponse.class
         );
 
-        log.info(response);
+        log.info(response.toString());
 
         return response;
     }

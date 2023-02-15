@@ -25,10 +25,12 @@ public class LogRestTemplateInterceptor implements ClientHttpRequestInterceptor 
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        log.info("preExchange");
         streamBridge.send("log-in-0", "preExchange");
 
         ClientHttpResponse response = execution.execute(request, body);
 
+        log.info("postExchange");
         streamBridge.send("log-in-0", "postExchange");
 
         return response;

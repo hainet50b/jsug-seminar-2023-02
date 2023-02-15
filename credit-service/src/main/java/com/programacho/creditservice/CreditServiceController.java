@@ -1,13 +1,14 @@
 package com.programacho.creditservice;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CreditServiceController {
 
     @PostMapping("/authorize")
-    public String authorize() {
-        return "ok";
+    public CreditServiceResponse authorize(@RequestBody CreditAuthorizeRequest request) {
+        return new CreditServiceResponse("ok", null);
     }
 }

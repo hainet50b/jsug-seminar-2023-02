@@ -1,6 +1,7 @@
 package com.programacho.paymentgateway;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,12 +23,15 @@ public class PaymentGatewayController {
     }
 
     @PostMapping("/credit/authorize")
-    public String creditAuthorize() {
-        String result = creditService.authorize();
+    public PaymentGatewayResponse creditAuthorize(@RequestBody CreditAuthorizeRequest request) {
+        CreditAuthorizeResponse response = creditService.authorize(request);
 
         paymentGatewayService.commitTransaction();
 
-        return result;
+        return new PaymentGatewayResponse(
+                response.result(),
+                response.errorCode()
+        );
     }
 
     @PostMapping("/qr/create-code")
