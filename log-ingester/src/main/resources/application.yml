@@ -6,6 +6,9 @@ spring:
     url: jdbc:h2:mem:log-ingester
     username: sa
     password: ""
+  sql:
+    init:
+      mode: embedded
   h2:
     console:
       enabled: true
