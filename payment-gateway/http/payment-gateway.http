@@ -10,3 +10,9 @@ Content-Type: application/json
 
 ### /qr/create-code
 POST http://localhost:8080/qr/create-code
+Content-Type: application/json
+
+{
+  "user": "hainet50b",
+  "amount": 1000
+}

@@ -1,2 +1,8 @@
 ### /create-code
 POST http://localhost:8091/create-code
+Content-Type: application/json
+
+{
+  "user": "hainet50b",
+  "amount": 1000
+}

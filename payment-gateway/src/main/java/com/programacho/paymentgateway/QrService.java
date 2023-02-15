@@ -16,14 +16,14 @@ public class QrService {
         this.restTemplate = restTemplate;
     }
 
-    public String createCode() {
-        String response = restTemplate.postForObject(
+    public QrCreateCodeResponse createCode(QrCreateCodeRequest request) {
+        QrCreateCodeResponse response = restTemplate.postForObject(
                 "http://localhost:8091/create-code",
-                null,
-                String.class
+                request,
+                QrCreateCodeResponse.class
         );
 
-        log.info(response);
+        log.info(response.toString());
 
         return response;
     }

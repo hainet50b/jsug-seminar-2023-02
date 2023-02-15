@@ -35,11 +35,14 @@ public class PaymentGatewayController {
     }
 
     @PostMapping("/qr/create-code")
-    public String qrCreateCode() {
-        String result = qrService.createCode();
+    public PaymentGatewayResponse qrCreateCode(@RequestBody QrCreateCodeRequest request) {
+        QrCreateCodeResponse response = qrService.createCode(request);
 
         paymentGatewayService.commitTransaction();
 
-        return result;
+        return new PaymentGatewayResponse(
+                response.result(),
+                response.errorCode()
+        );
     }
 }
