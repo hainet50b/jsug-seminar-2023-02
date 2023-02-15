@@ -1,2 +1,9 @@
 ### /authorize
 POST http://localhost:8090/authorize
+Content-Type: application/json
+
+{
+  "token": "4111110000001111",
+  "user": "hainet50b",
+  "amount": 1000
+}

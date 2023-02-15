@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreditServiceController {
 
     @PostMapping("/authorize")
-    public CreditServiceResponse authorize(@RequestBody CreditAuthorizeRequest request) {
-        return new CreditServiceResponse("ok", null);
+    public CreditAuthorizeResponse authorize(@RequestBody CreditAuthorizeRequest request) {
+        return new CreditAuthorizeResponse("ok", null);
     }
 }
