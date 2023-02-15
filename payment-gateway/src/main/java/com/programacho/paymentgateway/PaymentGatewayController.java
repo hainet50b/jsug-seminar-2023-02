@@ -10,18 +10,32 @@ public class PaymentGatewayController {
 
     private final QrService qrService;
 
-    public PaymentGatewayController(CreditService creditService, QrService qrService) {
+    private final PaymentGatewayService paymentGatewayService;
+
+    public PaymentGatewayController(
+            CreditService creditService,
+            QrService qrService,
+            PaymentGatewayService paymentGatewayService) {
         this.creditService = creditService;
         this.qrService = qrService;
+        this.paymentGatewayService = paymentGatewayService;
     }
 
     @PostMapping("/credit/authorize")
     public String creditAuthorize() {
-        return creditService.authorize();
+        String result = creditService.authorize();
+
+        paymentGatewayService.commitTransaction();
+
+        return result;
     }
 
     @PostMapping("/qr/create-code")
     public String qrCreateCode() {
-        return qrService.createCode();
+        String result = qrService.createCode();
+
+        paymentGatewayService.commitTransaction();
+
+        return result;
     }
 }
