@@ -3,9 +3,9 @@ POST http://localhost:8080/credit/authorize
 Content-Type: application/json
 
 {
-    "user": "hainet50b",
-    "token": "4111110000001111",
-    "amount": 1000
+  "user": "hainet50b",
+  "token": "4111110000001111",
+  "amount": 1000
 }
 
 ### /credit/authorize - INVALID_USER
@@ -15,6 +15,16 @@ Content-Type: application/json
 {
   "user": "b59fc898-9e53-4307-9c57-eca214072aa8",
   "token": "4111110000001111",
+  "amount": 1000
+}
+
+### /credit/authorize - DELAY
+POST http://localhost:8080/credit/authorize
+Content-Type: application/json
+
+{
+  "user": "hainet50b",
+  "token": "5111110000001111",
   "amount": 1000
 }
 

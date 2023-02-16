@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class CreditServiceController {
@@ -22,6 +23,8 @@ public class CreditServiceController {
                 "/authorize",
                 request.user()
         );
+
+        delay(request.token());
 
         Random random = new Random();
         int i = random.nextInt(100);
@@ -63,5 +66,17 @@ public class CreditServiceController {
         MDC.put("labels.function", function);
         MDC.put("labels.endpoint", endpoint);
         MDC.put("labels.user", user);
+    }
+
+    private void delay(String token) {
+        if (token.startsWith("5")) {
+            int delay = new Random().nextInt(3_000);
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(delay);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
