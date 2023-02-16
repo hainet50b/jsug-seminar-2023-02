@@ -6,6 +6,7 @@ import com.programacho.paymentgateway.credit.CreditService;
 import com.programacho.paymentgateway.qr.QrCreateCodeRequest;
 import com.programacho.paymentgateway.qr.QrCreateCodeResponse;
 import com.programacho.paymentgateway.qr.QrService;
+import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,12 @@ public class PaymentGatewayController {
 
     @PostMapping("/credit/authorize")
     public PaymentGatewayResponse creditAuthorize(@RequestBody PaymentGatewayCreditAuthorizeRequest request) {
+        setContext(
+                "クレジットカード与信",
+                "/credit/authorize",
+                request.user()
+        );
+
         CreditAuthorizeResponse response = creditService.authorize(new CreditAuthorizeRequest(
                 "payment-gateway",
                 request.token(),
@@ -49,6 +56,12 @@ public class PaymentGatewayController {
 
     @PostMapping("/qr/create-code")
     public PaymentGatewayResponse qrCreateCode(@RequestBody PaymentGatewayQrCreateCodeRequest request) {
+        setContext(
+                "QRコード発行",
+                "/qr/create-code",
+                request.user()
+        );
+
         QrCreateCodeResponse response = qrService.createCode(new QrCreateCodeRequest(
                 "payment-gateway",
                 request.amount()
@@ -61,5 +74,11 @@ public class PaymentGatewayController {
                 UUID.randomUUID().toString(),
                 response.errorCode()
         );
+    }
+
+    private void setContext(String function, String endpoint, String user) {
+        MDC.put("labels.function", function);
+        MDC.put("labels.endpoint", endpoint);
+        MDC.put("labels.user", user);
     }
 }
