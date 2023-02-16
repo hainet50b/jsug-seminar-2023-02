@@ -4,6 +4,10 @@ spring:
   application:
     name: qr-service
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
   tracing:
     enabled: true
     sampling:

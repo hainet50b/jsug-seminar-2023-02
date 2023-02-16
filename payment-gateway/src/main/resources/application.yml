@@ -16,6 +16,10 @@ spring:
         log-in-0:
           group: log-queue
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
   tracing:
     enabled: true
     sampling:
