@@ -27,24 +27,38 @@ public class QrServiceController {
         int i = random.nextInt(100);
 
         if (i <= 98) {
+            String result = "ok";
+            String paymentId = UUID.randomUUID().toString();
+            String url = "https://programacho.com/" + paymentId;
+
+            MDC.put("labels.payment.result", result);
+            MDC.put("labels.payment.id", paymentId);
+            MDC.put("labels.payment.qr.url", url);
+
             log.info("QRコードを発行しました。");
 
-            String id = UUID.randomUUID().toString();
-
             return new QrCreateCodeResponse(
-                    "ok",
-                    id,
-                    "https://programacho.com/" + id,
+                    result,
+                    paymentId,
+                    url,
                     null
             );
         } else {
+            String result = "ng";
+            String paymentId = UUID.randomUUID().toString();
+            String errorCode = "INVALID_PAYMENT";
+
+            MDC.put("labels.payment.result", result);
+            MDC.put("labels.payment.id", paymentId);
+            MDC.put("labels.payment.error-code", errorCode);
+
             log.info("残高不足のためQRコードの発行に失敗しました。");
 
             return new QrCreateCodeResponse(
-                    "ng",
-                    UUID.randomUUID().toString(),
+                    result,
+                    paymentId,
                     null,
-                    "INVALID_PAYMENT"
+                    errorCode
             );
         }
     }

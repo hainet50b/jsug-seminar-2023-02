@@ -27,20 +27,34 @@ public class CreditServiceController {
         int i = random.nextInt(100);
 
         if (i <= 90) {
+            String result = "ok";
+            String paymentId = UUID.randomUUID().toString();
+
+            MDC.put("labels.payment.result", result);
+            MDC.put("labels.payment.id", paymentId);
+
             log.info("クレジットカードの与信を取得しました。");
 
             return new CreditAuthorizeResponse(
-                    "ok",
-                    UUID.randomUUID().toString(),
+                    result,
+                    paymentId,
                     null
             );
         } else {
+            String result = "ng";
+            String paymentId = UUID.randomUUID().toString();
+            String errorCode = "INVALID_PAYMENT";
+
+            MDC.put("labels.payment.result", "ng");
+            MDC.put("labels.payment.id", paymentId);
+            MDC.put("labels.payment.error-code", errorCode);
+
             log.info("残高不足のためクレジットカードの与信の取得に失敗しました。");
 
             return new CreditAuthorizeResponse(
-                    "ng",
-                    UUID.randomUUID().toString(),
-                    "INVALID_PAYMENT"
+                    result,
+                    paymentId,
+                    errorCode
             );
         }
     }
