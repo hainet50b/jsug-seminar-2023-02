@@ -7,11 +7,18 @@
           serviceVersion="0.0.1-SNAPSHOT"
       />
     </Console>
+    <File name="ECS_FILE" fileName="log/qr-service.log">
+      <EcsLayout
+          serviceName="qr-service"
+          serviceVersion="0.0.1-SNAPSHOT"
+      />
+    </File>
   </Appenders>
 
   <Loggers>
     <Root level="info">
       <AppenderRef ref="ECS"/>
+      <AppenderRef ref="ECS_FILE"/>
     </Root>
   </Loggers>
 </Configuration>
