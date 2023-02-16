@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8070
 spring:
   application:
     name: log-ingester
