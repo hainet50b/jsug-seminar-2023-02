@@ -39,6 +39,7 @@ public class PaymentGatewayController {
     public PaymentGatewayCreditAuthorizeResponse creditAuthorize(@RequestBody PaymentGatewayCreditAuthorizeRequest request) {
         String paymentGatewayId = UUID.randomUUID().toString();
         MDC.put("labels.payment-gateway.id", paymentGatewayId);
+        MDC.put("labels.payment.token", request.token());
 
         setContext(
                 "クレジットカード与信",
@@ -75,7 +76,7 @@ public class PaymentGatewayController {
 
         paymentGatewayService.commitTransaction();
 
-        MDC.put("labels.payment-gateway.result", response.errorCode());
+        MDC.put("labels.payment-gateway.result", response.result());
         MDC.put("labels.payment-gateway.error-code", response.errorCode());
 
         return new PaymentGatewayCreditAuthorizeResponse(
@@ -125,7 +126,7 @@ public class PaymentGatewayController {
 
         paymentGatewayService.commitTransaction();
 
-        MDC.put("labels.payment-gateway.result", response.errorCode());
+        MDC.put("labels.payment-gateway.result", response.result());
         MDC.put("labels.payment-gateway.error-code", response.errorCode());
 
         return new PaymentGatewayQrCreateCodeResponse(

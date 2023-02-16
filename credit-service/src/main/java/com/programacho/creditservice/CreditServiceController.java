@@ -18,6 +18,8 @@ public class CreditServiceController {
 
     @PostMapping("/authorize")
     public CreditAuthorizeResponse authorize(@RequestBody CreditAuthorizeRequest request) {
+        MDC.put("labels.payment.token", request.token());
+
         setContext(
                 "クレジットカード与信",
                 "/authorize",
