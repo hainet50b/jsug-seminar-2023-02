@@ -45,11 +45,19 @@ public class PaymentGatewayController {
                 request.amount()
         ));
 
+        String paymentGatewayId = UUID.randomUUID().toString();
+
+        MDC.put("labels.payment.result", response.result());
+        MDC.put("labels.payment.id", response.id());
+        MDC.put("labels.payment.error-code", response.errorCode());
+        MDC.put("labels.payment-gateway.id", paymentGatewayId);
+        MDC.put("labels.payment-gateway.error-code", response.errorCode());
+
         paymentGatewayService.commitTransaction();
 
         return new PaymentGatewayCreditAuthorizeResponse(
                 response.result(),
-                UUID.randomUUID().toString(),
+                paymentGatewayId,
                 response.errorCode()
         );
     }
@@ -67,11 +75,20 @@ public class PaymentGatewayController {
                 request.amount()
         ));
 
+        String paymentGatewayId = UUID.randomUUID().toString();
+
+        MDC.put("labels.payment.result", response.result());
+        MDC.put("labels.payment.id", response.id());
+        MDC.put("labels.payment.qr.url", response.url());
+        MDC.put("labels.payment.error-code", response.errorCode());
+        MDC.put("labels.payment-gateway.id", paymentGatewayId);
+        MDC.put("labels.payment-gateway.error-code", response.errorCode());
+
         paymentGatewayService.commitTransaction();
 
         return new PaymentGatewayQrCreateCodeResponse(
                 response.result(),
-                UUID.randomUUID().toString(),
+                paymentGatewayId,
                 response.url(),
                 response.errorCode()
         );
