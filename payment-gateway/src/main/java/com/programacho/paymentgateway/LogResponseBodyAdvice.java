@@ -34,13 +34,13 @@ public class LogResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        log.info("RabbitMQにpayment-gatewayのレスポンス内容を送信します。");
+        log.debug("RabbitMQにpayment-gatewayのレスポンス内容を送信します。");
         try {
             streamBridge.send("log-in-0", new LogIngesterPayload("payment-gateway", "trace", "response", mapper.writeValueAsString(body)));
         } catch (JsonProcessingException e) {
-            log.info("メッセージオブジェクトをJSON形式にパースすることに失敗しました。");
+            log.debug("メッセージオブジェクトをJSON形式にパースすることに失敗しました。");
         } catch (RuntimeException e) {
-            log.warn("RabbitMQへのメッセージ送信に失敗しました。");
+            log.debug("RabbitMQへのメッセージ送信に失敗しました。");
         }
 
         return body;
