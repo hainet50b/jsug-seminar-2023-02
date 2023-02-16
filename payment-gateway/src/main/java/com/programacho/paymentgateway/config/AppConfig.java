@@ -1,6 +1,7 @@
-package com.programacho.paymentgateway;
+package com.programacho.paymentgateway.config;
 
 import com.github.fridujo.rabbitmq.mock.MockConnectionFactory;
+import com.programacho.paymentgateway.LogRestTemplateInterceptor;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;

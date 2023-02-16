@@ -2,6 +2,7 @@ package com.programacho.paymentgateway;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.programacho.paymentgateway.log.LogIngesterPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -14,15 +15,15 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 import java.lang.reflect.Type;
 
 @RestControllerAdvice
-public class LogRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
+public class LogRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
-    private final Logger log = LoggerFactory.getLogger(LogRequestBodyAdviceAdapter.class);
+    private final Logger log = LoggerFactory.getLogger(LogRequestBodyAdvice.class);
 
     private final StreamBridge streamBridge;
 
     private final ObjectMapper mapper;
 
-    public LogRequestBodyAdviceAdapter(StreamBridge streamBridge, ObjectMapper mapper) {
+    public LogRequestBodyAdvice(StreamBridge streamBridge, ObjectMapper mapper) {
         this.streamBridge = streamBridge;
         this.mapper = mapper;
     }

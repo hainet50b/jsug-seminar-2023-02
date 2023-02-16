@@ -1,5 +1,6 @@
 package com.programacho.paymentgateway;
 
+import com.programacho.paymentgateway.log.LogIngesterPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;

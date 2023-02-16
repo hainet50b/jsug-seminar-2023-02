@@ -1,5 +1,11 @@
 package com.programacho.paymentgateway;
 
+import com.programacho.paymentgateway.credit.CreditAuthorizeRequest;
+import com.programacho.paymentgateway.credit.CreditAuthorizeResponse;
+import com.programacho.paymentgateway.credit.CreditService;
+import com.programacho.paymentgateway.qr.QrCreateCodeRequest;
+import com.programacho.paymentgateway.qr.QrCreateCodeResponse;
+import com.programacho.paymentgateway.qr.QrService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

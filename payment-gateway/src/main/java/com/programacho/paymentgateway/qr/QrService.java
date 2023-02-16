@@ -1,4 +1,4 @@
-package com.programacho.paymentgateway;
+package com.programacho.paymentgateway.qr;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

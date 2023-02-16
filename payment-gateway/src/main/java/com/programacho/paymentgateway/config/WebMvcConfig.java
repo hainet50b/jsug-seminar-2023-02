@@ -1,5 +1,7 @@
-package com.programacho.paymentgateway;
+package com.programacho.paymentgateway.config;
 
+import com.programacho.paymentgateway.credit.CreditMDCHandlerInterceptor;
+import com.programacho.paymentgateway.qr.QrMDCHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
