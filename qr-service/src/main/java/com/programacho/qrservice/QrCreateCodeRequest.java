@@ -1,4 +1,6 @@
 package com.programacho.qrservice;
 
-public record QrCreateCodeRequest(String user, String amount) {
+public record QrCreateCodeRequest(
+        String user,
+        String amount) {
 }

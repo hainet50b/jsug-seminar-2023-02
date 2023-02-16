@@ -34,23 +34,33 @@ public class LogRestTemplateInterceptor implements ClientHttpRequestInterceptor 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         log.info("RabbitMQに対向決済機関へのリクエスト内容を送信します。");
-        streamBridge.send("log-in-0", new LogIngesterPayload(
-                "payment-gateway",
-                "payment",
-                "request",
-                new String(body, StandardCharsets.UTF_8)
-        ));
+
+        try {
+            streamBridge.send("log-in-0", new LogIngesterPayload(
+                    "payment-gateway",
+                    "payment",
+                    "request",
+                    new String(body, StandardCharsets.UTF_8)
+            ));
+        } catch (RuntimeException e) {
+            log.warn("RabbitMQへのメッセージ送信に失敗しました。");
+        }
 
         ClientHttpResponse response = execution.execute(request, body);
 
         log.info("RabbitMQに対向決済機関からのレスポンス内容を送信します。");
+
         BufferingClientHttpResponseWrapper responseWrapper = new BufferingClientHttpResponseWrapper(response);
-        streamBridge.send("log-in-0", new LogIngesterPayload(
-                "payment-gateway",
-                "payment",
-                "response",
-                new String(responseWrapper.getBody().readAllBytes(), StandardCharsets.UTF_8)
-        ));
+        try {
+            streamBridge.send("log-in-0", new LogIngesterPayload(
+                    "payment-gateway",
+                    "payment",
+                    "response",
+                    new String(responseWrapper.getBody().readAllBytes(), StandardCharsets.UTF_8)
+            ));
+        } catch (RuntimeException e) {
+            log.warn("RabbitMQへのメッセージ送信に失敗しました。");
+        }
 
         return responseWrapper;
     }

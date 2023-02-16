@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class QrServiceController {
 
@@ -15,6 +17,10 @@ public class QrServiceController {
     public QrCreateCodeResponse createCode(@RequestBody QrCreateCodeRequest request) {
         log.info("QRコードを発行しました。");
 
-        return new QrCreateCodeResponse("ok", null);
+        return new QrCreateCodeResponse(
+                "ok",
+                UUID.randomUUID().toString(),
+                null
+        );
     }
 }

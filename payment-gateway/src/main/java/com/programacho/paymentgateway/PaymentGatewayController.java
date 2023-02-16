@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class PaymentGatewayController {
 
@@ -29,25 +31,34 @@ public class PaymentGatewayController {
     }
 
     @PostMapping("/credit/authorize")
-    public PaymentGatewayResponse creditAuthorize(@RequestBody CreditAuthorizeRequest request) {
-        CreditAuthorizeResponse response = creditService.authorize(request);
+    public PaymentGatewayResponse creditAuthorize(@RequestBody PaymentGatewayCreditAuthorizeRequest request) {
+        CreditAuthorizeResponse response = creditService.authorize(new CreditAuthorizeRequest(
+                "payment-gateway",
+                request.token(),
+                request.amount()
+        ));
 
         paymentGatewayService.commitTransaction();
 
         return new PaymentGatewayResponse(
                 response.result(),
+                UUID.randomUUID().toString(),
                 response.errorCode()
         );
     }
 
     @PostMapping("/qr/create-code")
-    public PaymentGatewayResponse qrCreateCode(@RequestBody QrCreateCodeRequest request) {
-        QrCreateCodeResponse response = qrService.createCode(request);
+    public PaymentGatewayResponse qrCreateCode(@RequestBody PaymentGatewayQrCreateCodeRequest request) {
+        QrCreateCodeResponse response = qrService.createCode(new QrCreateCodeRequest(
+                "payment-gateway",
+                request.amount()
+        ));
 
         paymentGatewayService.commitTransaction();
 
         return new PaymentGatewayResponse(
                 response.result(),
+                UUID.randomUUID().toString(),
                 response.errorCode()
         );
     }

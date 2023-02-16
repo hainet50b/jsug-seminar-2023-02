@@ -39,7 +39,9 @@ public class LogRequestBodyAdvice extends RequestBodyAdviceAdapter {
         try {
             streamBridge.send("log-in-0", new LogIngesterPayload("payment-gateway", "trace", "request", mapper.writeValueAsString(body)));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.info("メッセージオブジェクトをJSON形式にパースすることに失敗しました。");
+        } catch (RuntimeException e) {
+            log.warn("RabbitMQへのメッセージ送信に失敗しました。");
         }
 
         return body;

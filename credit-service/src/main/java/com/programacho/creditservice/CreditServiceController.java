@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class CreditServiceController {
 
@@ -15,6 +17,10 @@ public class CreditServiceController {
     public CreditAuthorizeResponse authorize(@RequestBody CreditAuthorizeRequest request) {
         log.info("クレジットカードの与信を取得しました。");
 
-        return new CreditAuthorizeResponse("ok", null);
+        return new CreditAuthorizeResponse(
+                "ok",
+                UUID.randomUUID().toString(),
+                null
+        );
     }
 }

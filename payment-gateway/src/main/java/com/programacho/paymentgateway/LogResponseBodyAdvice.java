@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @RestControllerAdvice
-public class LogResponseBodyAdvice implements ResponseBodyAdvice {
+public class LogResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     private final Logger log = LoggerFactory.getLogger(LogResponseBodyAdvice.class);
 
@@ -38,7 +38,9 @@ public class LogResponseBodyAdvice implements ResponseBodyAdvice {
         try {
             streamBridge.send("log-in-0", new LogIngesterPayload("payment-gateway", "trace", "response", mapper.writeValueAsString(body)));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.info("メッセージオブジェクトをJSON形式にパースすることに失敗しました。");
+        } catch (RuntimeException e) {
+            log.warn("RabbitMQへのメッセージ送信に失敗しました。");
         }
 
         return body;
