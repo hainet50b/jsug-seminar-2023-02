@@ -32,7 +32,7 @@ public class PaymentGatewayController {
     }
 
     @PostMapping("/credit/authorize")
-    public PaymentGatewayResponse creditAuthorize(@RequestBody PaymentGatewayCreditAuthorizeRequest request) {
+    public PaymentGatewayCreditAuthorizeResponse creditAuthorize(@RequestBody PaymentGatewayCreditAuthorizeRequest request) {
         setContext(
                 "クレジットカード与信",
                 "/credit/authorize",
@@ -47,7 +47,7 @@ public class PaymentGatewayController {
 
         paymentGatewayService.commitTransaction();
 
-        return new PaymentGatewayResponse(
+        return new PaymentGatewayCreditAuthorizeResponse(
                 response.result(),
                 UUID.randomUUID().toString(),
                 response.errorCode()
@@ -55,7 +55,7 @@ public class PaymentGatewayController {
     }
 
     @PostMapping("/qr/create-code")
-    public PaymentGatewayResponse qrCreateCode(@RequestBody PaymentGatewayQrCreateCodeRequest request) {
+    public PaymentGatewayQrCreateCodeResponse qrCreateCode(@RequestBody PaymentGatewayQrCreateCodeRequest request) {
         setContext(
                 "QRコード発行",
                 "/qr/create-code",
@@ -69,9 +69,10 @@ public class PaymentGatewayController {
 
         paymentGatewayService.commitTransaction();
 
-        return new PaymentGatewayResponse(
+        return new PaymentGatewayQrCreateCodeResponse(
                 response.result(),
                 UUID.randomUUID().toString(),
+                response.url(),
                 response.errorCode()
         );
     }

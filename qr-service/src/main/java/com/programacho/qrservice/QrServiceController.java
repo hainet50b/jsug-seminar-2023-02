@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
 import java.util.UUID;
 
 @RestController
@@ -22,13 +23,30 @@ public class QrServiceController {
                 request.user()
         );
 
-        log.info("QRコードを発行しました。");
+        Random random = new Random();
+        int i = random.nextInt(100);
 
-        return new QrCreateCodeResponse(
-                "ok",
-                UUID.randomUUID().toString(),
-                null
-        );
+        if (i <= 98) {
+            log.info("QRコードを発行しました。");
+
+            String id = UUID.randomUUID().toString();
+
+            return new QrCreateCodeResponse(
+                    "ok",
+                    id,
+                    "https://programacho.com/" + id,
+                    null
+            );
+        } else {
+            log.info("残高不足のためQRコードの発行に失敗しました。");
+
+            return new QrCreateCodeResponse(
+                    "ng",
+                    UUID.randomUUID().toString(),
+                    null,
+                    "INVALID_PAYMENT"
+            );
+        }
     }
 
     private void setContext(String function, String endpoint, String user) {

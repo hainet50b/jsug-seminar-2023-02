@@ -1,6 +1,6 @@
-package com.programacho.qrservice;
+package com.programacho.paymentgateway;
 
-public record QrCreateCodeResponse(
+public record PaymentGatewayQrCreateCodeResponse(
         String result,
         String id,
         String url,

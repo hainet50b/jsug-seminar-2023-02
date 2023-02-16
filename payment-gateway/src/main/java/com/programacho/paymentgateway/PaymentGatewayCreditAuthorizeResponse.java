@@ -1,6 +1,6 @@
 package com.programacho.paymentgateway;
 
-public record PaymentGatewayResponse(
+public record PaymentGatewayCreditAuthorizeResponse(
         String result,
         String id,
         String errorCode) {
