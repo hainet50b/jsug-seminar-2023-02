@@ -3,10 +3,7 @@
 資料や配信アーカイブは以下をご参照ください。
 
 ## 資料（Speaker Deck）
-TODO
+https://speakerdeck.com/hainet50b/spring-boot-3-dot-0-obuzababiriteituagaido
 
 ## 配信アーカイブ
-TODO
-
-## 補足ブログ記事
 TODO
