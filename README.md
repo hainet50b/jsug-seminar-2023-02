@@ -5,5 +5,5 @@
 ## 資料（Speaker Deck）
 https://speakerdeck.com/hainet50b/spring-boot-3-dot-0-obuzababiriteituagaido
 
-## 配信アーカイブ
+## 配信アーカイブ（YouTube）
 https://www.youtube.com/watch?v=yjJ1jyvEaOI
